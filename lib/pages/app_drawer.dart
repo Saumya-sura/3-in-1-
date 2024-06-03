@@ -48,6 +48,13 @@ class AppDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/encrypt');
             },
           ),
+          ListTile(
+            title: Text("Translator"),
+            leading: Icon(Icons.translate),
+            onTap: () {
+              Navigator.pushNamed(context, '/translator');
+            },
+          ),
         ],
       ),
     );

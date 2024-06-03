@@ -4,6 +4,8 @@ import 'package:manyinone/pages/encrypt.dart';
 import 'package:manyinone/pages/home.dart';
 import 'package:manyinone/pages/todo.dart';
 
+import 'pages/tanslator.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/checklist': (context) => Checklist(),
         '/todo': (context) => TODO(),
         '/encrypt': (context) => Encryption(),
+        '/translator': (context) => Translate(),
       },
     );
   }
