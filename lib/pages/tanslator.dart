@@ -1,4 +1,4 @@
-import'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:manyinone/pages/app_drawer.dart';
 import 'package:translator/translator.dart';
 
@@ -10,92 +10,110 @@ class Translate extends StatefulWidget {
 }
 
 class _TranslateState extends State<Translate> {
-  var language = ['hindi','English','Marathi'];
-  var destination = "To";
-  var origin = "From ";
-  var output= "";
-  TextEditingController lang = TextEditingController();
-  void translate(String src, String dest,String input )async{
-    GoogleTranslator translator = new GoogleTranslator();
-    var trans = await translator.translate(input,from: src,to: dest);
-    setState(() {
-      output = trans.text.toString();
+  final List<String> languages = ['English', 'Hindi', 'Marathi'];
+  String destination = "To";
+  String origin = "From";
+  String output = "";
+  TextEditingController langController = TextEditingController();
 
+  void translate(String src, String dest, String input) async {
+    if (src == '--' || dest == '--') {
+      setState(() {
+        output = "Please select the language";
+      });
+      return;
+    }
+
+    GoogleTranslator translator = GoogleTranslator();
+    var translation = await translator.translate(input, from: src, to: dest);
+    setState(() {
+      output = translation.text;
     });
-    if(src == '--'|| dest == '--'){
-        setState(() {
-          output = "Please select the language";
-        });
+  }
+
+  String getLanguageCode(String language) {
+    switch (language) {
+      case 'English':
+        return 'en';
+      case 'Hindi':
+        return 'hi';
+      case 'Marathi':
+        return 'mr';
+      default:
+        return '--';
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
       appBar: AppBar(
         title: Text("Translator"),
-        leading: Builder(builder: (context) {
-          return IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          );
-        }),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
       ),
       drawer: AppDrawer(),
-      body: Center( 
-        child: SingleChildScrollView( 
-          child: Column( 
-            children: [ 
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [ 
-                  DropdownButton(
-                      focusColor: Colors.white,
-                      iconDisabledColor: Colors.yellow,
-                      iconEnabledColor: Colors.red,
-
-                      hint: Text(origin),
-                      icon: Icon(Icons.arrow_drop_down),
-                    items: language.map((dropDownStringItem){
-                    return DropdownMenuItem(child: Text(dropDownStringItem),value: dropDownStringItem,);
-
-                  }).toList(), onChanged: (String?value){
-                    setState(() {
-                      origin = value!;
-
-                    });
-                  }),
-
+                children: [
+                  DropdownButton<String>(
+                    focusColor: Colors.white,
+                    iconDisabledColor: Colors.yellow,
+                    iconEnabledColor: Colors.red,
+                    hint: Text(origin),
+                    icon: Icon(Icons.arrow_drop_down),
+                    items: languages.map((String language) {
+                      return DropdownMenuItem<String>(
+                        value: language,
+                        child: Text(language),
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
+                      setState(() {
+                        origin = value!;
+                      });
+                    },
+                  ),
                   SizedBox(width: 20),
-                    Icon(Icons.keyboard_arrow_right),
-                    SizedBox(width: 20),
-
-                      DropdownButton( 
-                        focusColor: Colors.white,
-                        iconDisabledColor: Colors.yellow,
-                        iconEnabledColor: Colors.red,
-                        hint: Text(destination),
-                        icon: Icon(Icons.arrow_drop_down),
-                        items: language.map((dropDownStringItem){
-                          return DropdownMenuItem(child: Text(dropDownStringItem),value: dropDownStringItem,);
-
-                        }).toList(), onChanged: (String?value){
-                          setState(() {
-                            destination = value!;
-                          });
-                        }),
-                      
-
+                  Icon(Icons.keyboard_arrow_right),
+                  SizedBox(width: 20),
+                  DropdownButton<String>(
+                    focusColor: Colors.white,
+                    iconDisabledColor: Colors.yellow,
+                    iconEnabledColor: Colors.red,
+                    hint: Text(destination),
+                    icon: Icon(Icons.arrow_drop_down),
+                    items: languages.map((String language) {
+                      return DropdownMenuItem<String>(
+                        value: language,
+                        child: Text(language),
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
+                      setState(() {
+                        destination = value!;
+                      });
+                    },
+                  ),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField( 
+              SizedBox(height: 20),
+              TextFormField(
                 cursorColor: Colors.white,
-                style: TextStyle(color: Colors.white ),
-                decoration: InputDecoration( 
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
                   labelText: "Enter Text",
                   labelStyle: TextStyle(color: Colors.white),
                   focusedBorder: OutlineInputBorder(
@@ -105,19 +123,33 @@ class _TranslateState extends State<Translate> {
                     borderSide: BorderSide(color: Colors.white),
                   ),
                 ),
-                controller: lang,
-                validator: (value){
-                  if(value!.isEmpty){
+                controller: langController,
+                validator: (value) {
+                  if (value!.isEmpty) {
                     return "Please enter some text";
                   }
+                  return null;
                 },
-                
               ),
-              ElevatedButton(    
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue), 
-                onPressed: (){ 
-                 // translate(src, dest, input)
-                }, child: Text("Translate")),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                onPressed: () {
+                  translate(
+                    getLanguageCode(origin),
+                    getLanguageCode(destination),
+                    langController.text,
+                  );
+                },
+                child: Text("Translate"),
+              ),
+              SizedBox(height: 20),
+              Text(
+                "\n$output",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
             ],
           ),
         ),
