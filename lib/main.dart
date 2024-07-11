@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:manyinone/pages/checklist.dart';
+
 import 'package:manyinone/pages/encrypt.dart';
 import 'package:manyinone/pages/home.dart';
 import 'package:manyinone/pages/splash.dart';
 import 'package:manyinone/pages/tanslator.dart';
 import 'package:manyinone/pages/todo.dart';
+import 'package:manyinone/pages/toss.dart';
   // Corrected import statement
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '2 in 1',
+      title: 'tools ',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         brightness: Brightness.light,
@@ -32,10 +33,11 @@ class MyApp extends StatelessWidget {
       routes: {
         //'/':(context) => Splash(),
         '/': (context) => Home(),
-        '/checklist': (context) => Checklist(),
+    
         '/todo': (context) => TodoHomePage(),
         '/encrypt': (context) => Encryption(),
         '/translator': (context) => Translate(),
+        '/toss': (context) => Coin()
       },
     );
   }

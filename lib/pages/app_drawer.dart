@@ -27,13 +27,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/');
             },
           ),
-          ListTile(
-            title: Text("Checklist"),
-            leading: Icon(Icons.check),
-            onTap: () {
-              Navigator.pushNamed(context, '/checklist');
-            },
-          ),
+          
           ListTile(
             title: Text("To-do"),
             leading: Icon(Icons.list),
@@ -55,6 +49,13 @@ class AppDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/translator');
             },
           ),
+          ListTile( 
+            title:  Text("Toss"),
+            leading: Icon(Icons.flip),
+            onTap: (){
+              Navigator.pushNamed(context, '/toss');
+            },
+          )
         ],
       ),
     );
