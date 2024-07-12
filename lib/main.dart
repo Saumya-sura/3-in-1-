@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manyinone/pages/calculator.dart';
 
 import 'package:manyinone/pages/encrypt.dart';
 import 'package:manyinone/pages/home.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
         '/todo': (context) => TodoHomePage(),
         '/encrypt': (context) => Encryption(),
         '/translator': (context) => Translate(),
-        '/toss': (context) => Coin()
+        '/toss': (context) => Coin(),
+        '/Cal':(context)=> Cal(),
       },
     );
   }

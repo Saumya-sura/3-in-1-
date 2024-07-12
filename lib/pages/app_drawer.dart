@@ -55,6 +55,13 @@ class AppDrawer extends StatelessWidget {
             onTap: (){
               Navigator.pushNamed(context, '/toss');
             },
+          ),
+          ListTile( 
+            title: Text("Calculator"),
+            leading: Icon(Icons.calculate),
+            onTap: (){
+              Navigator.pushNamed(context, '/Cal');
+            },
           )
         ],
       ),
