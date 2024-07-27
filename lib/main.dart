@@ -3,10 +3,12 @@ import 'package:manyinone/pages/calculator.dart';
 
 import 'package:manyinone/pages/encrypt.dart';
 import 'package:manyinone/pages/home.dart';
+import 'package:manyinone/pages/jsonnn.dart';
 import 'package:manyinone/pages/splash.dart';
 import 'package:manyinone/pages/tanslator.dart';
 import 'package:manyinone/pages/todo.dart';
 import 'package:manyinone/pages/toss.dart';
+import 'package:manyinone/pages/weather.dart';
   // Corrected import statement
 
 void main() {
@@ -33,9 +35,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         //'/':(context) => Splash(),
-        '/': (context) => Home(),
+        '/': (context) =>  TodoHomePage(), // WeatherForecast() , //Home(),
     
-        '/todo': (context) => TodoHomePage(),
+     //   '/todo': (context) => TodoHomePage(),
         '/encrypt': (context) => Encryption(),
         '/translator': (context) => Translate(),
         '/toss': (context) => Coin(),
